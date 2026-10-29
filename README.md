@@ -1,0 +1,1 @@
+# generate-auth-app-by-book
