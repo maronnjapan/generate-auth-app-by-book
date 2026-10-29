@@ -1,0 +1,20 @@
+# 依存関係とビルド成果物
+node_modules/
+dist/
+.wrangler/
+.data/
+
+# ローカルの設定と秘密情報（各ディレクトリの .env.example を .env にコピーして使う）
+.env
+.env.*
+!.env.example
+
+# ログと OS のファイル
+*.log
+.DS_Store
+
+# 生成 AI ツールのローカル設定（共有するのは .claude/settings.json と .claude/commands/ だけ）
+.claude/settings.local.json
+
+# 注意: chapter3/openid-provider/src/oidc-provider/ は意図的に無視しない。
+# 読者が `pnpm run generate` で生成し、生成直後にコミットしてから改造する（再生成時に差分を取り戻せる）。

@@ -1,0 +1,31 @@
+{
+  "name": "chapter3-openid-provider",
+  "version": "0.1.0",
+  "private": true,
+  "description": "maronn-openid-connect の CLI で生成した OpenID Provider を、Node.js で起動する最小構成（第3章）",
+  "type": "module",
+  "scripts": {
+    "generate": "maronn-oidc generate hono --enable device-authorization-grant --output ./src/oidc-provider",
+    "generate:dry-run": "maronn-oidc generate hono --enable device-authorization-grant --output ./src/oidc-provider --dry-run",
+    "generate:force": "maronn-oidc generate hono --enable device-authorization-grant --output ./src/oidc-provider --force",
+    "graph": "maronn-oidc graph hono --enable device-authorization-grant",
+    "dev": "node --watch --env-file-if-exists=.env --import tsx src/server.ts",
+    "start": "node --env-file-if-exists=.env --import tsx src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.5",
+    "@maronn-openid-connect/core": "0.10.0",
+    "@maronn-openid-connect/experimental": "0.0.16",
+    "hono": "^4.13.13"
+  },
+  "devDependencies": {
+    "@maronn-openid-connect/cli": "0.15.1",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.9"
+  }
+}
