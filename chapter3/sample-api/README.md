@@ -5,7 +5,7 @@
 
 ## 作り方
 
-`prompts/B10-sample-api.md` を生成AIに渡してください（Claude Code では `/b10-sample-api`）。
+`prompts/B07-sample-api.md` を生成AIに渡してください（Claude Code では `/b7-sample-api`）。
 
 ## 接続先（`../openid-provider/.env.example` の既定値）
 

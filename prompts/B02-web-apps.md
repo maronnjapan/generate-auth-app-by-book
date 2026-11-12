@@ -28,6 +28,7 @@
 | `CLIENT_ID` | `app-a` | `app-b` |
 | `CLIENT_SECRET` | `app-a-secret` | `app-b-secret` |
 | `REDIRECT_URI` | `http://localhost:3001/callback` | `http://localhost:3002/callback` |
+| `SESSION_COOKIE_NAME` | `app_a_session` | `app_b_session` |
 
 - scope: `openid profile email`
 - クライアント認証: `client_secret_post`
@@ -39,10 +40,12 @@
 |---|---|
 | `GET /` | 未ログインなら、アプリ名と「ログイン」リンク。ログイン済みなら、アプリ名、ユーザー情報（`sub`、`name`、`email`）、「ログアウト」リンク |
 | `GET /login` | `state` と `nonce` を生成してセッションに保存し、OP の認可エンドポイントへリダイレクトする（`response_type=code`、`client_id`、`redirect_uri`、`scope`、`state`、`nonce`） |
-| `GET /callback` | `state` がセッションの値と一致することを確認し、`code` をトークンエンドポイントで交換する。ID トークンの `iss`、`aud`、`exp`、`nonce` を確認し、UserInfo からユーザー情報を取得して、アプリのセッション Cookie（HttpOnly、SameSite=Lax）に保存し、`/` にリダイレクトする。失敗は理由を画面に表示する |
+| `GET /callback` | `state` がセッションの値と一致することを確認し、`code` をトークンエンドポイントで交換する。ID トークンの `iss`、`aud`、`exp`、`nonce` を確認し、UserInfo からユーザー情報を取得してアプリのセッション（Cookie は HttpOnly、SameSite=Lax、Path=/）に保存し、`/` にリダイレクトする。失敗は理由を画面に表示する |
 | `GET /logout` | アプリのセッションだけを削除して `/` に戻る。OP のログイン状態は残す（SSO を確認するため） |
 
 セッションはメモリに持ち、Cookie にはセッション ID だけを入れてください。
+Cookie の名前は `SESSION_COOKIE_NAME` の値にし、App A と App B と OP（`op_session`）で必ず別の名前にしてください。
+ブラウザーは Cookie をホスト名で管理し、ポートを区別しません。同じ `localhost` で動く三つの Cookie の名前が重なると互いに上書きし、片方のアプリでログインするともう片方がログアウトしたように見えます。
 画面は素朴な HTML でよく、ログイン状態とユーザー情報が分かれば十分です。
 
 ## 成果物
@@ -55,13 +58,13 @@
 
 1. OP、App A、App B を起動する（ターミナルを三つ使う）
 2. http://localhost:3001 で「ログイン」→ OP のログイン画面で `alice` / `password` → App A に戻り、ユーザー情報が表示される
-3. 同じブラウザで http://localhost:3002 の「ログイン」→ OP でパスワードを再入力せずに App B に戻る
-4. App A と App B で同じ `sub` が表示されている
+3. 同じブラウザーで http://localhost:3002 の「ログイン」→ OP でパスワードを再入力せずに App B に戻る
+4. App A と App B で同じ `sub` が表示されている。App A のタブを再読み込みしても、ログインしたままになっている
 
 ## 進め方
 
 1. 実装方針とファイル構成を短く説明してから実装する
-2. 実装後、`pnpm install` と起動を実際に行い、`GET /` が表示されることと、`/login` が OP へのリダイレクト（302）を返すことを `curl -i` で確認する。ブラウザでのログインは読者が行うので、手順を README に書く。確認後はプロセスを止める
+2. 実装後、`pnpm install` と起動を実際に行い、`GET /` が表示されることと、`/login` が OP へのリダイレクト（302）を返すことを `curl -i` で確認する。ブラウザーでのログインは読者が行うので、手順を README に書く。確認後はプロセスを止める
 3. 確認していないことは README に明記する
 
 ## 守ること

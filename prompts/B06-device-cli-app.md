@@ -1,8 +1,8 @@
-# B.9 Device Authorization Grant を使うサンプル CLI アプリの実装
+# B.6 Device Authorization Grant を使うサンプル CLI アプリの実装
 
 ## 目的
 
-ターミナルで動く CLI アプリから、第3章の認証基盤に認可を要求し、ユーザーがブラウザで承認したあとにアクセストークンを取得して、サンプル API を呼ぶまでを動かしてください。
+ターミナルで動く CLI アプリから、第3章の認証基盤に認可を要求し、ユーザーがブラウザーで承認したあとにアクセストークンを取得して、サンプル API を呼ぶまでを動かしてください。
 OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 
 ## 作業場所
@@ -23,7 +23,7 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 ## 使う技術
 
 - Node.js 22、pnpm、TypeScript、`tsx`（`pnpm start` で実行できるようにする）
-- HTTP は `fetch`。依存は最小にする（CLI の引数解析やブラウザ起動に小さなライブラリを使ってよい）
+- HTTP は `fetch`。依存は最小にする（CLI の引数解析やブラウザー起動に小さなライブラリを使ってよい）
 
 ## 動き（RFC 8628）
 
@@ -31,9 +31,9 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 2. `POST device_authorization_endpoint`（`client_id`、`scope`）を送り、`device_code`、`user_code`、`verification_uri`、`verification_uri_complete`、`expires_in`、`interval` を受け取る（§3.1、§3.2）
 3. ターミナルに表示する
    - 承認用 URL: `verification_uri_complete`（ユーザーコードを含む）を、クリックしやすいように単独の行に出す。対応する端末では OSC 8 のハイパーリンクにしてもよい
-   - ユーザーコード: ブラウザの画面に表示されるコードと見比べるため
+   - ユーザーコード: ブラウザーの画面に表示されるコードと見比べるため
    - 有効期限（`expires_in` 秒）
-   - オプション `--open` を付けたときだけ、既定のブラウザで URL を開く（既定では開かない。URL を手入力しなくて済む形にするのが目的）
+   - オプション `--open` を付けたときだけ、既定のブラウザーで URL を開く（既定では開かない。URL を手入力しなくて済む形にするのが目的）
 4. `interval` 秒ごとに `POST token_endpoint`（`grant_type`、`device_code`、`client_id`）を送る（§3.4、§3.5）
    - `authorization_pending`: 待っていることを表示して続ける
    - `slow_down`: 間隔を 5 秒長くして続ける
@@ -64,7 +64,7 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 ## 進め方
 
 1. 実装方針を短く説明してから実装する
-2. 実装後、認証基盤（`chapter3/openid-provider`）を起動した状態で一度実行し、承認用 URL とユーザーコードが表示されて承認待ちになるところまでを確認する。ブラウザでの承認は読者が行うので、自動化しない。確認後はプロセスを止める
+2. 実装後、認証基盤（`chapter3/openid-provider`）を起動した状態で一度実行し、承認用 URL とユーザーコードが表示されて承認待ちになるところまでを確認する。ブラウザーでの承認は読者が行うので、自動化しない。確認後はプロセスを止める
 3. 確認していないことは README に明記する
 
 ## 守ること

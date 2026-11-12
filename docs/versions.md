@@ -1,4 +1,4 @@
-# A.8 本書で使用したパッケージのバージョンと参照資料
+# A.7 本書で使用したパッケージのバージョンと参照資料
 
 確認日: 2026-10-29
 
@@ -33,15 +33,16 @@
 
 | 仕様 | URL | 本書で関係する章 |
 |---|---|---|
-| RFC 6749 The OAuth 2.0 Authorization Framework | https://www.rfc-editor.org/rfc/rfc6749 | 第2章（認可コード、トークンエンドポイント、クライアント認証） |
+| RFC 6749 The OAuth 2.0 Authorization Framework | https://www.rfc-editor.org/rfc/rfc6749 | 第2章（認可コード、トークンエンドポイント、クライアント認証）、第3章 3.4.4（§3.1 と §3.2 の TLS 要件） |
 | RFC 6750 Bearer Token Usage | https://www.rfc-editor.org/rfc/rfc6750 | 第2章、第3章（Authorization: Bearer） |
-| RFC 7636 PKCE | https://www.rfc-editor.org/rfc/rfc7636 | 第2章 2.6 |
+| RFC 7636 Proof Key for Code Exchange（PKCE） | https://www.rfc-editor.org/rfc/rfc7636 | 第2章 2.6（気になった機能の追加の例） |
 | RFC 8628 OAuth 2.0 Device Authorization Grant | https://www.rfc-editor.org/rfc/rfc8628 | 第3章 |
+| RFC 6265 HTTP State Management Mechanism | https://www.rfc-editor.org/rfc/rfc6265 | 第2章（§8.5: Cookie はポートを区別しない） |
 | RFC 7662 Token Introspection | https://www.rfc-editor.org/rfc/rfc7662 | 第3章（サンプル API の検証） |
 | RFC 9068 JWT Profile for OAuth 2.0 Access Tokens | https://www.rfc-editor.org/rfc/rfc9068 | 第3章（生成 OP のアクセストークン形式） |
 | OpenID Connect Core 1.0 | https://openid.net/specs/openid-connect-core-1_0.html | 第2章（ID トークン、UserInfo、認可コードフロー） |
 | OpenID Connect Discovery 1.0 | https://openid.net/specs/openid-connect-discovery-1_0.html | 第2章、第3章（`/.well-known/openid-configuration`） |
-| The OAuth 2.1 Authorization Framework（draft） | https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/ | 第2章（PKCE 必須化の背景） |
+| The OAuth 2.1 Authorization Framework（draft） | https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/ | 第2章 2.6（PKCE を必須とする流れ）、第3章（OSS が準拠を掲げる仕様） |
 
 ### OSS
 

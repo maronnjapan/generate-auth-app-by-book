@@ -18,6 +18,7 @@ app-a と app-b は同じ構成で、設定値だけが違います。
 | `CLIENT_ID` | `app-a` |
 | `CLIENT_SECRET` | `app-a-secret` |
 | `REDIRECT_URI` | `http://localhost:3001/callback` |
+| `SESSION_COOKIE_NAME` | `app_a_session` |
 
 ## 起動と確認
 

@@ -1,6 +1,6 @@
 # 第2章 認証基盤とアプリでそろえる設定値
 
-生成AIに渡すプロンプト（B.1、B.2、B.4、B.5）はこの表の値を前提にしています。
+生成AIに渡すプロンプト（B.1〜B.4）はこの表の値を前提にしています。
 値を変える場合は、この表を先に変えてから、プロンプトと各アプリの `.env` をそろえてください。
 
 ## URL とポート
@@ -57,7 +57,7 @@
 |---|---|---|
 | `PORT` | `3000` | 待ち受けポート |
 | `ISSUER` | `http://localhost:3000` | issuer。Discovery の各 URL の基準 |
-| `REQUIRE_PKCE` | B.5 以降は `true` | `true` なら `code_challenge` の無い認可リクエストを拒否し、交換時に `code_verifier` を検証する（B.4 で追加、B.5 で既定を `true` にする） |
+| `REQUIRE_PKCE` | `true` | B.4 の記入例で PKCE を追加したあとに使う。`true` なら `code_challenge` の無い認可リクエストを拒否する。`false` にすると追加前と同じく受け付ける |
 
 ### Web アプリ（A と B で同じ名前、値だけ違う）
 
@@ -69,10 +69,16 @@
 | `CLIENT_ID` | `app-a` | `app-b` |
 | `CLIENT_SECRET` | `app-a-secret` | `app-b-secret` |
 | `REDIRECT_URI` | `http://localhost:3001/callback` | `http://localhost:3002/callback` |
-| `USE_PKCE` | B.5 以降は `true` | 同じ（B.4 で追加） |
-| `STOP_BEFORE_TOKEN_EXCHANGE` | 未設定（`1` で検証モード） | 同じ（B.4 で追加。App A だけでよい） |
+| `SESSION_COOKIE_NAME` | `app_a_session` | `app_b_session` |
+| `USE_PKCE` | `true` | 同じ（B.4 の記入例で PKCE を追加したあとに使う。`false` にすると `code_challenge` と `code_verifier` を送らない） |
 
 ## Cookie
 
-- 認証基盤のログイン状態: HttpOnly の Cookie（名前は任意。例 `op_session`）。これが SSO の土台になる
-- アプリのセッション: HttpOnly の Cookie（名前は任意。例 `app_session`）。App A と App B で名前が同じでもポートが違うので別物として扱われる。混乱するなら `app_a_session` のように分ける
+| 構成要素 | Cookie の名前 | 役割 |
+|---|---|---|
+| 認証基盤 | `op_session` | 認証基盤のログイン状態。これが SSO の土台になる |
+| App A | `app_a_session` | App A のセッション |
+| App B | `app_b_session` | App B のセッション |
+
+- どれも HttpOnly、SameSite=Lax、Path=/ にする
+- Cookie の名前は必ず三つとも別にする。ブラウザーは Cookie をホスト名で管理し、ポートを区別しない（RFC 6265 §8.5）。`localhost:3000`、`localhost:3001`、`localhost:3002` は同じ `localhost` として扱われるので、名前が同じだと互いの Cookie を上書きし、片方のアプリでログインするともう片方がログアウトしたように見える

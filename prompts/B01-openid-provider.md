@@ -28,6 +28,7 @@
 | scope | `openid profile email` |
 | クライアント認証 | `client_secret_post`（`client_secret_basic` も受け付けてよい） |
 | 環境変数 | `PORT`（既定 3000）、`ISSUER`（既定 `http://localhost:3000`） |
+| OP のセッション Cookie の名前 | `op_session` |
 
 ユーザーとクライアントの登録は、コード中の一箇所（設定ファイルや配列）にまとめ、増やしやすくしてください。
 
@@ -36,7 +37,7 @@
 1. Discovery: `GET /.well-known/openid-configuration`。`issuer`、`authorization_endpoint`、`token_endpoint`、`userinfo_endpoint`、`jwks_uri`、`response_types_supported: ["code"]`、`grant_types_supported: ["authorization_code"]`、`scopes_supported`、`id_token_signing_alg_values_supported: ["RS256"]`、`subject_types_supported: ["public"]`、`token_endpoint_auth_methods_supported` を返す
 2. JWKS: `GET /.well-known/jwks.json`。起動時に生成した RS256 鍵の公開鍵を返す
 3. 認可エンドポイント: `GET /authorize`。`response_type=code`、`client_id`、`redirect_uri`、`scope`、`state`、`nonce` を受け付ける。`client_id` と `redirect_uri` は登録値と完全一致で検証し、不一致ならリダイレクトせずにエラー画面を返す。未ログインならログイン画面へ。ログイン済み（OP のセッション Cookie が有効）なら、ログイン画面を出さずに認可コードを発行して `redirect_uri` に `code` と `state` を付けてリダイレクトする
-4. ログイン画面: `GET /login`、`POST /login`。ユーザー名とパスワードのフォーム。成功で OP のセッション Cookie（HttpOnly、SameSite=Lax）を発行し、元の認可リクエストを続行して認可コードを返す。失敗はエラーを表示して再入力
+4. ログイン画面: `GET /login`、`POST /login`。ユーザー名とパスワードのフォーム。成功で OP のセッション Cookie（名前は `op_session`。HttpOnly、SameSite=Lax、Path=/）を発行し、元の認可リクエストを続行して認可コードを返す。失敗はエラーを表示して再入力
 5. トークンエンドポイント: `POST /token`。`grant_type=authorization_code`。クライアント認証を行い、`code` が未使用で有効期限内（5 分）であること、`redirect_uri` と `client_id` が認可時と一致することを確認する。`access_token`（不透明なランダム文字列でよい）、`token_type: "Bearer"`、`expires_in`、`id_token` を返す。`id_token` は RS256 署名の JWT で、`iss`、`sub`、`aud`（client_id）、`exp`、`iat`、`nonce`（認可時に受け取った値）を含める。認可コードは一回使ったら無効にする
 6. UserInfo: `GET /userinfo`。`Authorization: Bearer` のアクセストークンを検証し、`sub`、`name`、`email` を返す。無効なら 401 と `WWW-Authenticate: Bearer`
 7. エラー応答: OAuth の形式（`error`、`error_description`）で返す
@@ -52,7 +53,7 @@
 ## 成果物
 
 - 動くコード
-- `README.md`: 依存関係のインストール、設定する値、起動コマンド、動作確認の手順（`curl` で Discovery と JWKS を取る例、ブラウザでの確認）、含めた仕様と省いた仕様の一覧
+- `README.md`: 依存関係のインストール、設定する値、起動コマンド、動作確認の手順（`curl` で Discovery と JWKS を取る例、ブラウザーでの確認）、含めた仕様と省いた仕様の一覧
 - `.env.example`
 
 ## 進め方
@@ -65,4 +66,5 @@
 
 - ローカルで動かすことだけを前提にする。デプロイ用の設定は足さない
 - ポート、client_id、redirect_uri、ユーザー名は表のとおりにする（App A と App B の設定とそろえるため）
+- Cookie の名前は `op_session` にする。ブラウザーは Cookie をホスト名で管理し、ポートを区別しないので、同じ `localhost` で動く App A（`app_a_session`）と App B（`app_b_session`）の Cookie と名前が重なると、互いに上書きしてしまう
 - 回答と README は日本語で書く

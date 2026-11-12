@@ -11,16 +11,13 @@
 
 | コマンド | 呼び出すプロンプト |
 |---|---|
-| `/b1-openid-provider` | B01 OpenID Provider の実装 |
-| `/b2-web-apps` | B02 二つの Web アプリの実装 |
-| `/b3-check-features` | B03 既存の実装に含まれる機能の確認 |
-| `/b4-pkce-comparison-setup` | B04 PKCE の比較用構成と検証手順 |
-| `/b5-add-pkce` | B05 PKCE の追加と成功・拒否の確認 |
-| `/b6-add-feature <機能と対象>` | B06 気になった機能の追加 |
-| `/b7-verify-against-spec <期待と実際>` | B07 公開仕様を参照した確認・修正 |
-| `/b8-configure-generated-op <変更内容>` | B08 生成した認証基盤の設定・編集 |
-| `/b9-device-cli-app` | B09 サンプル CLI アプリの実装 |
-| `/b10-sample-api` | B10 サンプル API の実装 |
+| `/b1-openid-provider` | B.1 OpenID Provider の実装 |
+| `/b2-web-apps` | B.2 二つの Web アプリの実装 |
+| `/b3-check-features <確認したい機能>` | B.3 既存の実装に含まれる機能の確認（引数が無ければ PKCE） |
+| `/b4-add-feature <機能と対象>` | B.4 気になった機能の追加（引数が無ければ記入例の PKCE） |
+| `/b5-configure-generated-op <変更内容>` | B.5 OSS で生成した認証基盤の設定・編集 |
+| `/b6-device-cli-app` | B.6 サンプル CLI アプリの実装 |
+| `/b7-sample-api` | B.7 サンプル API の実装 |
 
 ### 権限の許可リスト（任意）
 

@@ -68,7 +68,7 @@ Device Authorization Grant を使うクライアントは `grantTypes` に `urn:
 
 変更は `pnpm run generate:force` で消えます。再生成の前にコミットしてください。
 `.maronn-openid-connect.json` は生成時の構成の記録なので、手で書き換えないでください。
-生成AIに頼むときは `prompts/B08-configure-generated-op.md` を使います。
+生成AIに頼むときは `prompts/B05-configure-generated-op.md`（Claude Code では `/b5-configure-generated-op`）を使います。
 
 ## 知っておくこと
 

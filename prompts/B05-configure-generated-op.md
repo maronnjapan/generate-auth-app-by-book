@@ -1,4 +1,4 @@
-# B.8 OSS で生成した認証基盤の設定・編集
+# B.5 OSS で生成した認証基盤の設定・編集
 
 ## 前提
 
@@ -35,7 +35,7 @@
    | 処理の順番や検証の追加・削除 | 該当エンドポイントの `pipeline.ts` と `steps/`（`features/device-authorization-grant/endpoints/device-authorization/` など） |
 
 3. 再生成しない。`.maronn-openid-connect.json` を書き換えない。`node_modules/@maronn-openid-connect/*` を編集しない
-4. 変更後、`pnpm typecheck` と `pnpm start` を行い、`curl` で確認する（Discovery、`POST /device_authorization`）。ブラウザの確認は手順として示す。確認後はプロセスを止める
+4. 変更後、`pnpm typecheck` と `pnpm start` を行い、`curl` で確認する（Discovery、`POST /device_authorization`）。ブラウザーの確認は手順として示す。確認後はプロセスを止める
 5. 変更したファイルと理由の一覧を `chapter3/openid-provider/README.md` の末尾に「自分で変更した範囲」として追記する（3.7.4 の振り返りに使う）
 
 ## 注意
