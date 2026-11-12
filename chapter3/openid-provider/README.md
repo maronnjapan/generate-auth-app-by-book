@@ -62,7 +62,7 @@ Device Authorization Grant を使うクライアントは `grantTypes` に `urn:
 
 ## 生成コードを変えるとき
 
-- 画面の文言: `src/oidc-provider/features/device-authorization-grant/views.tsx`（デバイスの画面）、`src/oidc-provider/views.tsx`（ログインと同意の画面）
+- 画面の文言: `src/oidc-provider/features/device-authorization-grant/views.tsx`（デバイスの画面）、`src/oidc-provider/views.tsx`（ログインと同意の画面、およびデバイスの画面も使う共通部品）。デバイスの画面の中に出るエラーの文言は `src/oidc-provider/features/device-authorization-grant/endpoints/device/page.tsx` にある
 - Device Authorization Grant の設定（有効期限 600 秒、ポーリング間隔 5 秒、ログイン失敗の上限 5 回）: `src/oidc-provider/features/device-authorization-grant/config.ts`
 - トークンの有効期限など: `src/app.ts` の `applyOidc()` に渡す `config`（`src/oidc-provider/config.ts` の `ProviderConfig` を参照）
 

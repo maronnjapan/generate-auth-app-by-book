@@ -73,4 +73,5 @@ Cookie の名前は `SESSION_COOKIE_NAME` の値にし、App A と App B と OP�
 
 - 設定値は表のとおりにする
 - ローカルで動かすことだけを前提にする
+- サーバーは `localhost` でだけ待ち受ける（`@hono/node-server` の `serve()` に `hostname: 'localhost'` を渡す）。検証用の固定パスワードを使うので、同じネットワークのほかの機器から接続できないようにする
 - 回答と README は日本語で書く

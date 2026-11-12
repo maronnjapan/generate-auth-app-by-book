@@ -83,4 +83,5 @@ API 自体の機能は最小限でよく、「アクセストークンの検証�
 
 - 認証基盤側のコードは変えない
 - トークンをログに全文出さない
+- サーバーは `localhost` でだけ待ち受ける（`@hono/node-server` の `serve()` に `hostname: 'localhost'` を渡す）
 - 回答と README は日本語で書く

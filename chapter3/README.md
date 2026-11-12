@@ -179,7 +179,7 @@ cd chapter3/cli-app && pnpm start
 - 実行した生成コマンド: `maronn-oidc generate hono --enable device-authorization-grant --output ./src/oidc-provider`
 - 既定の機能と、明示的に追加した機能: `src/oidc-provider/.maronn-openid-connect.json` の `features` と `features/enabled.ts`
 - エンドポイントの図: `pnpm run graph`（Mermaid）。`pnpm exec maronn-oidc graph hono --enable device-authorization-grant --detail steps` で各エンドポイントの中のステップまで描ける
-- 生成したコードの調整（3.7.3）: `prompts/B05-configure-generated-op.md`（`/b5-configure-generated-op`）。画面の文言や設定値を変えるときに使う。変えたファイルは README に残す
+- 生成したコードの調整（3.7.3）: `prompts/B05-configure-generated-op.md`（`/b5-configure-generated-op`）。画面の文言や設定値を変えるときに使う。変えたファイルは README に残す。文言や `interval` を変えたあとは、この README の「Continue」「Approve」「Deny」や `interval (5)` を、変更後の内容に読み替える
 
 確認できたことと、まだ確認していないことを分けて書き出してください（3.7.4）。
 

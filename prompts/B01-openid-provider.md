@@ -67,6 +67,7 @@
 ## 守ること
 
 - ローカルで動かすことだけを前提にする。デプロイ用の設定は足さない
+- サーバーは `localhost` でだけ待ち受ける（`@hono/node-server` の `serve()` に `hostname: 'localhost'` を渡す）。検証用の固定パスワードを使うので、同じネットワークのほかの機器から接続できないようにする
 - ポート、client_id、redirect_uri、ユーザー名は表のとおりにする（App A と App B の設定とそろえるため）
 - Cookie の名前は `op_session` にする。ブラウザーは Cookie をホスト名で管理し、ポートを区別しないので、同じ `localhost` で動く App A（`app_a_session`）と App B（`app_b_session`）の Cookie と名前が重なると、互いに上書きしてしまう
 - 回答と README は日本語で書く

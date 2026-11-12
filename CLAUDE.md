@@ -9,6 +9,7 @@
 - 回答と生成するドキュメント（README やコメント）は日本語で書く。コードの識別子は英語でよい
 - 使う技術は TypeScript、Hono、`@hono/node-server`、pnpm、Node.js 22。TypeScript の実行には `tsx` を使ってよい。サーバーを持たない CLI アプリでは Hono を使わなくてよい。これ以外を使うときは理由を README に書く
 - すべて同じ PC の `localhost` で動かす。デプロイ用の設定（Dockerfile、クラウドの設定、HTTPS 証明書）は足さない
+- サーバーは `localhost` でだけ待ち受ける（`@hono/node-server` の `serve()` に `hostname: 'localhost'` を渡す）。検証用の固定の値を使うので、同じネットワークのほかの機器から接続できないようにする
 - 各ディレクトリ（`chapter2/openid-provider/` など）は、その中だけで `pnpm install` と起動ができる独立したプロジェクトにする。ルートに `package.json` を作らない
 - ポート、client_id、client_secret、redirect_uri、ユーザー名は決まった値を使う。第2章は `chapter2/settings.md`、第3章は `chapter3/README.md` と `chapter3/openid-provider/.env.example` に従う
 - 設定値は `.env` から読めるようにし、`.env.example` を置く。`.env` はコミットしない

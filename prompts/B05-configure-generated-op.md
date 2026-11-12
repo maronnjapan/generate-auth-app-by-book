@@ -29,18 +29,21 @@
    |---|---|
    | issuer、トークンの有効期限などの `ProviderConfig` | `src/app.ts` の `applyOidc()` に渡す `config`（型は `src/oidc-provider/config.ts`） |
    | Device Authorization Grant の有効期限、ポーリング間隔、ログイン失敗の上限 | `src/oidc-provider/features/device-authorization-grant/config.ts` |
-   | デバイスの画面（コード入力、ログイン、承認、完了） | `src/oidc-provider/features/device-authorization-grant/views.tsx`（hono/jsx） |
+   | デバイスの画面（コード入力、ログイン、承認、完了） | `src/oidc-provider/features/device-authorization-grant/views.tsx`（hono/jsx）。ユーザー名とパスワードのラベルや、承認・拒否の結果の表示は共通部品（`src/oidc-provider/views.tsx`）を使っている。コードやログインのエラーの文言は `features/device-authorization-grant/endpoints/device/page.tsx` が画面に渡している。共通部品はほかの画面でも使われるので、変える前に影響を確かめる |
    | ログイン画面、同意画面、エラー画面 | `src/oidc-provider/views.tsx`、`src/oidc-provider/pages/` |
    | ユーザー、クライアント | `src/app.ts`（`registerUser()`、`registerClient()`）、`src/settings.ts` |
    | 処理の順番や検証の追加・削除 | 該当エンドポイントの `pipeline.ts` と `steps/`（`features/device-authorization-grant/endpoints/device-authorization/` など） |
 
 3. 再生成しない。`.maronn-openid-connect.json` を書き換えない。`node_modules/@maronn-openid-connect/*` を編集しない
-4. 変更後、`pnpm typecheck` と `pnpm start` を行い、`curl` で確認する（Discovery、`POST /device_authorization`）。ブラウザーの確認は手順として示す。確認後はプロセスを止める
-5. 変更したファイルと理由の一覧を `chapter3/openid-provider/README.md` の末尾に「自分で変更した範囲」として追記する（3.7.4 の振り返りに使う）
+4. 変更後、`pnpm typecheck` と `pnpm start` を行い、`curl` で確認する（Discovery、`POST /device_authorization`。画面を変えた場合は `GET /device` の HTML も）。ブラウザーの確認は手順として示す。確認後はプロセスを止める
+5. 変更したファイルと理由の一覧を `chapter3/openid-provider/README.md` の末尾に「自分で変更した範囲」として追記する（3.7.4 の振り返りに使う）。すでにこの節があれば、新しい節を足さずに、その節を更新する。README のほかの箇所に、変更によって事実と合わなくなった記述があれば直す
 
 ## 注意
 
-- 生成コードに書いた変更は `pnpm run generate:force` で消える。変更の前にコミットする
+- 生成コードを変更する前に、生成直後の状態がコミットされていることを `git status` で確かめる。コミットされていなければ、その旨を報告して、読者にコミットしてもらってから変更する（あとで `git diff` で変更箇所を取り出せるようにするため）
+- 生成コードに書いた変更は `pnpm run generate:force` で消える。再生成の前にもコミットが必要なことを README に書く
+- 画面は、生成コードを編集する代わりに、`applyOidc()` の `views` オプションで差し替えることもできる（`src/app.ts` に書くので、再生成で消えない）。どちらの方法を使ったかを README に書く
+- 画面の文言や `interval` を変えると、`chapter3/README.md` などに書かれた画面の文言（Continue、Approve、Deny）や値（`interval` 5 秒）と合わなくなる。作業場所の外の文書は書き換えず、読み替えが必要なことを README に書く
 - `@maronn-openid-connect/experimental` の API は安定していない。版を上げるときは再生成を検討する
 - この OP の Device Authorization Grant は `scope` を必須にし、`openid` を含める必要がある（OSS 側の既知の制限）。これを変える依頼なら、該当ステップ（`endpoints/device-authorization/steps/validate-request.ts`）を変えることになるが、仕様の範囲を広げる変更であることを README に書く
 - 回答と README は日本語で書く
