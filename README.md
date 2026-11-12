@@ -72,7 +72,7 @@ pnpm -v   # 10.x
 | [B.3 既存の実装に含まれる機能の確認](prompts/B03-check-features.md) | 2.6.2 | `chapter2/`（変更しない） | 気になった機能（本書の例は PKCE）の有無と実装箇所の報告 |
 | [B.4 気になった機能の追加](prompts/B04-add-feature.md) | 2.6.3 | 任意（本書の例は `chapter2/`） | 機能の追加（本書の例は PKCE）と、動作の確認方法 |
 | [B.5 OSS で生成した認証基盤の設定・編集](prompts/B05-configure-generated-op.md) | 3.4.4、3.7.3 | `chapter3/openid-provider/` | 画面の文言や設定の変更 |
-| [B.6 サンプル CLI アプリの実装](prompts/B06-device-cli-app.md) | 3.5.1〜3.5.3 | `chapter3/cli-app/` | Device Authorization Grant を使う CLI アプリ |
+| [B.6 サンプル CLI アプリの実装](prompts/B06-device-cli-app.md) | 3.5.2 | `chapter3/cli-app/` | Device Authorization Grant を使う CLI アプリ |
 | [B.7 サンプル API の実装](prompts/B07-sample-api.md) | 3.5.4 | `chapter3/sample-api/` | アクセストークンを検証する最小の API |
 
 渡し方と、うまく動かなかった場合の伝え方は [prompts/README.md](prompts/README.md) を参照してください。

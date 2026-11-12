@@ -24,7 +24,7 @@ Claude Code では `.claude/commands/` のスラッシュコマンド（`/b1-ope
 | B.3 | [B03-check-features.md](B03-check-features.md) | 2.6.2 | `chapter2/`（変更しない） | 現在の実装に含まれる機能の報告（本書の例は PKCE） |
 | B.4 | [B04-add-feature.md](B04-add-feature.md) | 2.6.3 | 任意（本書の例は `chapter2/`） | 気になった機能の追加（本書の例は PKCE）と、動作の確認方法 |
 | B.5 | [B05-configure-generated-op.md](B05-configure-generated-op.md) | 3.4.4、3.7.3 | `chapter3/openid-provider/` | OSS で生成した認証基盤の設定・編集 |
-| B.6 | [B06-device-cli-app.md](B06-device-cli-app.md) | 3.5.1〜3.5.3 | `chapter3/cli-app/` | Device Authorization Grant を使うサンプル CLI アプリ |
+| B.6 | [B06-device-cli-app.md](B06-device-cli-app.md) | 3.5.2 | `chapter3/cli-app/` | Device Authorization Grant を使うサンプル CLI アプリ |
 | B.7 | [B07-sample-api.md](B07-sample-api.md) | 3.5.4 | `chapter3/sample-api/` | アクセストークンで利用するサンプル API |
 
 ## うまく動かなかった場合（2.4 補足）

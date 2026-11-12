@@ -149,7 +149,7 @@ curl -s -X POST http://localhost:4000/token \
 
 ## 3.5 検証用の CLI アプリを、生成AIで作る
 
-1. サンプル CLI アプリ（3.5.1〜3.5.3）: `prompts/B06-device-cli-app.md` を渡す（Claude Code では `/b6-device-cli-app`）。`cli-app/` に作られる
+1. サンプル CLI アプリ（3.5.2）: `prompts/B06-device-cli-app.md` を渡す（Claude Code では `/b6-device-cli-app`）。`cli-app/` に作られる
 2. サンプル API（3.5.4）: `prompts/B07-sample-api.md` を渡す（`/b7-sample-api`）。`sample-api/` に作られる
 
 CLI アプリは、承認用 URL（`verification_uri_complete`。ユーザーコードを含む）をクリックできる形でターミナルに表示し、承認後にアクセストークンを取得してサンプル API を呼びます。
