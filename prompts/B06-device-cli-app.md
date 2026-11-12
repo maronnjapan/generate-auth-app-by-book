@@ -8,6 +8,7 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 ## 作業場所
 
 `chapter3/cli-app/`。このディレクトリだけで `pnpm install` と実行ができる、独立したプロジェクトにしてください。
+作業場所に最初からある README.md は、成果物の README で上書きして構いません。
 
 ## 接続先（`chapter3/openid-provider/.env.example` の既定値）
 
@@ -18,7 +19,7 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
 | client_id | `sample-cli`。public client で `client_secret` は無い（クライアント認証 `none`）。要求には `client_id` だけを付ける |
 | grant_type | `urn:ietf:params:oauth:grant-type:device_code` |
 | scope | `openid profile email`（この認証基盤は `scope` を必須にし、`openid` を含める必要がある） |
-| サンプル API | `GET http://localhost:4001/me` |
+| サンプル API | `GET http://localhost:4001/me`（設定の `API_URL` に `/me` を付けた URL） |
 
 ## 使う技術
 
@@ -34,15 +35,15 @@ OAuth 2.0 Device Authorization Grant（RFC 8628）を使います。
    - ユーザーコード: ブラウザーの画面に表示されるコードと見比べるため
    - 有効期限（`expires_in` 秒）
    - オプション `--open` を付けたときだけ、既定のブラウザーで URL を開く（既定では開かない。URL を手入力しなくて済む形にするのが目的）
-4. `interval` 秒ごとに `POST token_endpoint`（`grant_type`、`device_code`、`client_id`）を送る（§3.4、§3.5）
+4. `interval` 秒ごとに `POST token_endpoint`（`grant_type`、`device_code`、`client_id`）を送る（§3.4、§3.5）。最初の要求も `interval` 秒待ってから送る
    - `authorization_pending`: 待っていることを表示して続ける
    - `slow_down`: 間隔を 5 秒長くして続ける
-   - `access_denied`: 「承認されませんでした」と表示して終了コード 1 で終わる
-   - `expired_token`: 「期限切れです。もう一度実行してください」と表示して終了コード 1 で終わる
-   - それ以外のエラー: `error` と `error_description` をそのまま表示して終わる
-   - `expires_in` を過ぎたら、ポーリングをやめて期限切れとして終わる
+   - `access_denied`: 「access_denied: 承認されませんでした」と表示して終了コード 1 で終わる
+   - `expired_token`: 「expired_token: 期限切れです。もう一度実行してください」と表示して終了コード 1 で終わる
+   - それ以外のエラー: `error` と `error_description` をそのまま表示して終了コード 1 で終わる
+   - `expires_in` を過ぎたら、ポーリングをやめて、期限切れとして終了コード 1 で終わる
 5. 成功したら `token_type`、`expires_in`、`scope` を表示する。`access_token` と `id_token` は全文を表示せず、先頭の数文字と長さだけにする。`--show-tokens` を付けたときは全文を表示する
-6. `GET http://localhost:4001/me` を `Authorization: Bearer <access_token>` で呼び、HTTP ステータスと JSON を表示する。API が起動していなければ、その旨を表示する
+6. `GET <API_URL>/me`（既定値では `http://localhost:4001/me`）を `Authorization: Bearer <access_token>` で呼び、HTTP ステータスと JSON を表示する。API が起動していなければ、その旨を表示して終了コード 0 で終わる（トークンの取得までは成功しているため）
 
 ## 設定
 

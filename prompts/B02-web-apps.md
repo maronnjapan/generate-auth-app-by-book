@@ -11,6 +11,7 @@
 `chapter2/app-a/` と `chapter2/app-b/`。
 二つは同じ構成でよく、設定値だけが違います。片方を作って複製するか、共通のコードを両方に置いてください。
 それぞれのディレクトリだけで `pnpm install` と起動ができる、独立したプロジェクトにしてください。
+作業場所に最初からある README.md は、成果物の README で上書きして構いません。
 
 ## 使う技術
 
@@ -33,6 +34,7 @@
 - scope: `openid profile email`
 - クライアント認証: `client_secret_post`
 - OP のエンドポイントは `OP_ISSUER` の Discovery（`/.well-known/openid-configuration`）から取得する。取得に失敗したら issuer から `/authorize`、`/token`、`/userinfo` を組み立てる
+- 実装の前に、`chapter2/openid-provider/` の README と Discovery の内容を確認する。この表に無いパラメーターを OP が必須にしている場合（例: PKCE の `code_challenge`）は、OP に合わせてアプリ側も対応し、対応した内容を README に書く。OP が求めていない機能は足さない
 
 ## 画面と動き
 

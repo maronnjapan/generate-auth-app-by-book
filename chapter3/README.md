@@ -172,7 +172,7 @@ cd chapter3/cli-app && pnpm start
 1. CLI アプリが承認用 URL とユーザーコードを表示し、承認待ちになる（3.6.1）
 2. 同じ PC のブラウザーで URL を開く。コードが入った状態で「Continue」を押し、`testuser` / `password` でログインし、画面のコードが CLI アプリの表示と同じことを確認して「Approve」を押す（3.6.2）
 3. CLI アプリがアクセストークンを取得し、サンプル API（`GET /me`）を呼んだ結果（`sub` など）を表示する（3.6.3）
-4. もう一度 CLI アプリを実行し、今度は「Deny」を押す。CLI アプリが `access_denied` を表示し、トークンを取得できないことを確認する（3.6.4）
+4. もう一度 CLI アプリを実行し、今度は「Deny」を押す。CLI アプリが `access_denied` を表示して終了し、トークンを取得できないことを確認する（3.6.4）
 
 ## 3.7 コマンドと生成物から、機能構成を振り返る
 
@@ -186,7 +186,7 @@ cd chapter3/cli-app && pnpm start
 | 区分 | 例 |
 |---|---|
 | ライブラリ側で確認されている範囲 | OSS の README に書かれた準拠仕様とテストの範囲（Device Authorization Grant は experimental で、API は不安定） |
-| 今回の検証で確かめた範囲 | 承認と拒否、`authorization_pending` と `slow_down`、取得したトークンで API を呼べること |
+| 今回の検証で確かめた範囲 | 承認と拒否、`authorization_pending`、取得したトークンで API を呼べること。`slow_down` は、3.4.5 の curl で `interval` より短い間隔で要求したときに確かめられる（`interval` を守る CLI アプリでは出ない） |
 | 自分で追加・変更した範囲 | 設定値、画面の文言、ユーザーの追加など（B.5 で変えたもの） |
 | 次に試したい機能や条件 | アクセストークンの `aud` を API の URL にする（この OP は `<issuer>/userinfo` だけを入れる）、`--db` で永続化する、期限切れ（`expired_token`）の挙動、別の実験的機能（PAR、CIBA など） |
 

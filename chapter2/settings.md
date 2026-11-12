@@ -33,6 +33,7 @@
 
 | パス | 役割 |
 |---|---|
+| `GET /` | 起動していることが分かる簡単なトップページ |
 | `GET /.well-known/openid-configuration` | Discovery |
 | `GET /.well-known/jwks.json` | ID トークンの署名を検証する公開鍵 |
 | `GET /authorize` | 認可エンドポイント |
@@ -57,7 +58,6 @@
 |---|---|---|
 | `PORT` | `3000` | 待ち受けポート |
 | `ISSUER` | `http://localhost:3000` | issuer。Discovery の各 URL の基準 |
-| `REQUIRE_PKCE` | `true` | B.4 の記入例で PKCE を追加したあとに使う。`true` なら `code_challenge` の無い認可リクエストを拒否する。`false` にすると追加前と同じく受け付ける |
 
 ### Web アプリ（A と B で同じ名前、値だけ違う）
 
@@ -70,7 +70,16 @@
 | `CLIENT_SECRET` | `app-a-secret` | `app-b-secret` |
 | `REDIRECT_URI` | `http://localhost:3001/callback` | `http://localhost:3002/callback` |
 | `SESSION_COOKIE_NAME` | `app_a_session` | `app_b_session` |
-| `USE_PKCE` | `true` | 同じ（B.4 の記入例で PKCE を追加したあとに使う。`false` にすると `code_challenge` と `code_verifier` を送らない） |
+
+### PKCE を追加したあとに使う環境変数（B.4 の記入例）
+
+B.1 と B.2 の時点では、この二つは存在しません。
+2.6 で B.4 の記入例どおりに PKCE を追加すると、使えるようになります。
+
+| 変数 | 対象 | 既定値 | 意味 |
+|---|---|---|---|
+| `REQUIRE_PKCE` | 認証基盤 | `true` | `true` なら `code_challenge` の無い認可リクエストを拒否する。`false` にすると、追加前と同じく受け付ける |
+| `USE_PKCE` | App A、App B | `true` | `false` にすると、`code_challenge` と `code_verifier` を送らない（追加前の動き） |
 
 ## Cookie
 

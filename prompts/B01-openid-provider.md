@@ -9,6 +9,7 @@
 ## 作業場所
 
 `chapter2/openid-provider/`。このディレクトリだけで `pnpm install` と起動ができる、独立したプロジェクトにしてください。
+作業場所に最初からある README.md は、成果物の README で上書きして構いません。
 
 ## 使う技術
 
@@ -22,7 +23,7 @@
 | 項目 | 値 |
 |---|---|
 | URL と issuer | `http://localhost:3000` |
-| 検証用ユーザー | `alice` / `password`（name: Alice Example、email: alice@example.com）、`bob` / `password`（name: Bob Example、email: bob@example.com） |
+| 検証用ユーザー | `alice` / `password`（name: Alice Example、email: alice@example.com）、`bob` / `password`（name: Bob Example、email: bob@example.com）。`sub` にはユーザー名（`alice`、`bob`）を使う |
 | クライアント App A | client_id `app-a`、client_secret `app-a-secret`、redirect_uri `http://localhost:3001/callback` |
 | クライアント App B | client_id `app-b`、client_secret `app-b-secret`、redirect_uri `http://localhost:3002/callback` |
 | scope | `openid profile email` |
@@ -36,11 +37,12 @@
 
 1. Discovery: `GET /.well-known/openid-configuration`。`issuer`、`authorization_endpoint`、`token_endpoint`、`userinfo_endpoint`、`jwks_uri`、`response_types_supported: ["code"]`、`grant_types_supported: ["authorization_code"]`、`scopes_supported`、`id_token_signing_alg_values_supported: ["RS256"]`、`subject_types_supported: ["public"]`、`token_endpoint_auth_methods_supported` を返す
 2. JWKS: `GET /.well-known/jwks.json`。起動時に生成した RS256 鍵の公開鍵を返す
-3. 認可エンドポイント: `GET /authorize`。`response_type=code`、`client_id`、`redirect_uri`、`scope`、`state`、`nonce` を受け付ける。`client_id` と `redirect_uri` は登録値と完全一致で検証し、不一致ならリダイレクトせずにエラー画面を返す。未ログインならログイン画面へ。ログイン済み（OP のセッション Cookie が有効）なら、ログイン画面を出さずに認可コードを発行して `redirect_uri` に `code` と `state` を付けてリダイレクトする
+3. 認可エンドポイント: `GET /authorize`。`response_type=code`、`client_id`、`redirect_uri`、`scope`、`state`、`nonce` を受け付ける。`client_id` と `redirect_uri` は登録値と完全一致で検証し、不一致ならリダイレクトせずにエラー画面を返す。この検証を通ったあとのエラー（`response_type` や `scope` の不備など）は、`redirect_uri` に `error`、`error_description`、`state` を付けてリダイレクトで返す（RFC 6749 §4.1.2.1）。未ログインならログイン画面へ。ログイン済み（OP のセッション Cookie が有効）なら、ログイン画面を出さずに認可コードを発行して `redirect_uri` に `code` と `state` を付けてリダイレクトする
 4. ログイン画面: `GET /login`、`POST /login`。ユーザー名とパスワードのフォーム。成功で OP のセッション Cookie（名前は `op_session`。HttpOnly、SameSite=Lax、Path=/）を発行し、元の認可リクエストを続行して認可コードを返す。失敗はエラーを表示して再入力
 5. トークンエンドポイント: `POST /token`。`grant_type=authorization_code`。クライアント認証を行い、`code` が未使用で有効期限内（5 分）であること、`redirect_uri` と `client_id` が認可時と一致することを確認する。`access_token`（不透明なランダム文字列でよい）、`token_type: "Bearer"`、`expires_in`、`id_token` を返す。`id_token` は RS256 署名の JWT で、`iss`、`sub`、`aud`（client_id）、`exp`、`iat`、`nonce`（認可時に受け取った値）を含める。認可コードは一回使ったら無効にする
-6. UserInfo: `GET /userinfo`。`Authorization: Bearer` のアクセストークンを検証し、`sub`、`name`、`email` を返す。無効なら 401 と `WWW-Authenticate: Bearer`
-7. エラー応答: OAuth の形式（`error`、`error_description`）で返す
+6. UserInfo: `GET /userinfo`。`Authorization: Bearer` のアクセストークンを検証し、`sub` と、scope に `profile` があれば `name`、`email` があれば `email` を返す。トークンが無ければ 401 と `WWW-Authenticate: Bearer`、トークンが無効なら 401 と `WWW-Authenticate: Bearer error="invalid_token"` を返す（RFC 6750 §3、§3.1）
+7. エラー応答: トークンエンドポイントのエラーは OAuth の形式（JSON の `error`、`error_description`）で返す
+8. トップページ: `GET /`。OP の名前と issuer、Discovery へのリンクを表示する簡単なページを返す（読者がブラウザーで `http://localhost:3000` を開いたときに、起動していることが分かるようにするため）
 
 ## 今回は含めなくてよいもの
 
