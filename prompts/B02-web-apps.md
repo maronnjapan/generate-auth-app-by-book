@@ -17,7 +17,7 @@
 
 - Node.js 22、pnpm、TypeScript、Hono、`@hono/node-server`
 - OIDC クライアントライブラリは使わず、リダイレクトとトークン交換を自分で実装する。仕組みを見えるようにするため
-- ID トークンは、少なくとも `iss`、`aud`、`exp`、`nonce` をペイロードで確認する。署名検証（JWKS から公開鍵を取得して RS256 を検証）は行ってよいが必須にしない。行わない場合は README に「未検証」と書く
+- ID トークンは、少なくとも `iss`（`OP_ISSUER` と同じ値であること）、`aud`、`exp`、`nonce` をペイロードで確認する。署名検証（JWKS から公開鍵を取得して RS256 を検証）は行ってよいが必須にしない。行わない場合は README に「未検証」と書く
 
 ## 設定値（`chapter2/settings.md` と同じ）
 
@@ -32,8 +32,8 @@
 | `SESSION_COOKIE_NAME` | `app_a_session` | `app_b_session` |
 
 - scope: `openid profile email`
-- クライアント認証: `client_secret_post`
-- OP のエンドポイントは `OP_ISSUER` の Discovery（`/.well-known/openid-configuration`）から取得する。取得に失敗したら issuer から `/authorize`、`/token`、`/userinfo` を組み立てる
+- クライアント認証: `client_secret_basic`（`client_id` と `client_secret` を `Authorization: Basic` ヘッダーで送る。RFC 6749 §2.3.1）
+- OP のエンドポイントは `OP_ISSUER` の Discovery（`/.well-known/openid-configuration`）から取得する。取得に失敗したら issuer から `/authorize`、`/token`、`/userinfo`、`/.well-known/jwks.json` を組み立てる
 - 実装の前に、`chapter2/openid-provider/` の README と Discovery の内容を確認する。この表に無いパラメーターを OP が必須にしている場合（例: PKCE の `code_challenge`）は、OP に合わせてアプリ側も対応し、対応した内容を README に書く。OP が求めていない機能は足さない
 
 ## 画面と動き

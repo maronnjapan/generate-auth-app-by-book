@@ -25,7 +25,7 @@
 | App A | `app-a` | `app-a-secret` | `http://localhost:3001/callback` |
 | App B | `app-b` | `app-b-secret` | `http://localhost:3002/callback` |
 
-- クライアント認証の方式: `client_secret_post`（`client_secret_basic` も受け付けてよい）
+- クライアント認証の方式: アプリは `client_secret_basic` を使う。認証基盤は `client_secret_basic` と `client_secret_post` の両方を受け付ける
 - scope: `openid profile email`
 - response_type: `code`
 

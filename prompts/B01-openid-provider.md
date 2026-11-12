@@ -27,7 +27,7 @@
 | クライアント App A | client_id `app-a`、client_secret `app-a-secret`、redirect_uri `http://localhost:3001/callback` |
 | クライアント App B | client_id `app-b`、client_secret `app-b-secret`、redirect_uri `http://localhost:3002/callback` |
 | scope | `openid profile email` |
-| クライアント認証 | `client_secret_post`（`client_secret_basic` も受け付けてよい） |
+| クライアント認証 | `client_secret_basic` と `client_secret_post` の両方を受け付ける（App A と App B は `client_secret_basic` を使う） |
 | 環境変数 | `PORT`（既定 3000）、`ISSUER`（既定 `http://localhost:3000`） |
 | OP のセッション Cookie の名前 | `op_session` |
 
