@@ -8,7 +8,7 @@
 |---|---|---|
 | Node.js | 22.23.4（22.9 以上で可） | `node --env-file-if-exists` と `fetch`、WebCrypto を使う |
 | pnpm | 10.28.0（10 系で可） | 入っていなければ `npm install -g pnpm@10` |
-| TypeScript | 5.9 系 | 第3章の土台は `^5.9.0`。OSS 本体は 7.0 系を使っているが、生成コードは 5.9 でも型検査が通ることを確認した |
+| TypeScript | 5.9 系 | 第3章の `package.json` は `^5.9.0`。OSS 本体は 7.0 系を使っているが、生成コードは 5.9 でも型検査が通ることを確認した |
 | tsx | 4.23 系 | TypeScript をそのまま実行する |
 | ブラウザー | Chromium | ログイン、SSO、Device Authorization Grant の承認と拒否を確認した。Firefox と Safari は未確認 |
 

@@ -18,7 +18,7 @@
 | ブラウザー | Chrome、Edge など Chromium 系で確認済み。第3章の認証基盤は `Secure` 属性の Cookie を使うため、`http://localhost` でその Cookie を受け付けるブラウザーが必要（Firefox、Safari は未確認） |
 | ターミナル | 3〜4 つ開けるもの（認証基盤とアプリを同時に起動する） |
 
-外部サービスのアカウント、契約、デプロイ先は不要です。
+生成AIのコーディングツールのほかに、外部サービスのアカウント、契約、デプロイ先は不要です。
 すべて同じ PC の中（`localhost`）で動かします。
 
 ## A.2 リポジトリの取得方法
@@ -54,14 +54,14 @@ pnpm -v   # 10.x
 │   └── app-b/                # Web アプリ B の作業場所（B.2）
 └── chapter3/                 # 第3章: OSS を土台にして、発展的な機能を試す
     ├── README.md             # 章の進め方（3.4〜3.7）
-    ├── openid-provider/      # maronn-oidc で生成する認証基盤の土台（生成物はここに作る）
+    ├── openid-provider/      # maronn-oidc で生成する認証基盤の作業場所（起動用のファイルは用意済み）
     ├── cli-app/              # サンプル CLI アプリの作業場所（B.6）
     └── sample-api/           # サンプル API の作業場所（B.7）
 ```
 
 第2章の `openid-provider/`、`app-a/`、`app-b/` と、第3章の `cli-app/`、`sample-api/` は、README だけを置いた空の作業場所です。
 中身はプロンプトを渡して生成AIに作ってもらいます。
-第3章の `openid-provider/` だけは、OSS の CLI が生成したコードを Node.js で起動するための土台（`package.json`、`src/server.ts` など）をあらかじめ置いています。
+第3章の `openid-provider/` にだけは、OSS の CLI が生成したコードを Node.js で起動するためのファイル（`package.json`、`src/server.ts` など。以下「起動用のファイル」）をあらかじめ置いています。
 
 ## A.4 プロンプトと実装対象の対応
 

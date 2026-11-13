@@ -1,6 +1,6 @@
 # chapter3/openid-provider
 
-OSS [maronn-openid-connect](https://github.com/maronnjapan/maronn-openid-connect) の CLI で生成した OpenID Provider を、Node.js で起動するための土台です。
+OSS [maronn-openid-connect](https://github.com/maronnjapan/maronn-openid-connect) の CLI で生成した OpenID Provider を、Node.js で起動するためのファイル（起動用のファイル）を置いた作業場所です。
 章全体の手順は [../README.md](../README.md) にあります。
 
 ## ファイルの役割

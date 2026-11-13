@@ -69,7 +69,7 @@ Claude Code は、コマンドを実行するたびに許可を求めます。
 
 ## Codex CLI、Cursor、Gemini CLI など
 
-- `AGENTS.md` を読むツールは、起動時に同じルールを読み込みます。読まないツールでは、最初に「`CLAUDE.md` を読んでください」と伝えてください
+- `AGENTS.md` を読むツールは、起動時に、`CLAUDE.md` を読むようにという案内と、ルールの要点を読み込みます。読まないツールでは、最初に「`CLAUDE.md` を読んでください」と伝えてください
 - プロンプトは `prompts/` のファイルをチャットに添付するか、「`prompts/B01-openid-provider.md` を読んで実装してください」と指示します
 - 作業場所を明示してください（例: 「作業場所は `chapter2/openid-provider/` です」）
 

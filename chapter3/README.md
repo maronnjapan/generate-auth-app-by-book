@@ -7,7 +7,7 @@
 
 | 構成要素 | ディレクトリ | URL | 作り方 |
 |---|---|---|---|
-| 認証基盤（OpenID Provider） | `openid-provider/` | http://localhost:4000 | OSS の CLI で生成する（土台は用意済み） |
+| 認証基盤（OpenID Provider） | `openid-provider/` | http://localhost:4000 | OSS の CLI で生成する（起動用のファイルは用意済み） |
 | サンプル CLI アプリ | `cli-app/` | なし（ターミナルで実行） | プロンプト B.6 を生成AIに渡す |
 | ブラウザー | | | ログインと承認に使う |
 | サンプル API | `sample-api/` | http://localhost:4001 | プロンプト B.7 を生成AIに渡す |
@@ -75,7 +75,7 @@ Next steps:
   5. Start the server
 ```
 
-Next steps の 1〜4 は土台（`tsconfig.json`、`src/app.ts`、`package.json`）で済ませてあります。
+Next steps の 1〜4 は、用意済みの起動用のファイル（`tsconfig.json`、`src/app.ts`、`package.json`）で済ませてあります。
 生成直後にコミットしておくと、あとで生成コードを変えたときに差分を取り戻せます。
 
 ```bash
@@ -107,7 +107,7 @@ ls -R src/oidc-provider/features/device-authorization-grant/
 
 ```bash
 cp .env.example .env    # 値は上の表のとおり。変えなければそのままでよい
-pnpm typecheck          # 生成コードと土台の型検査
+pnpm typecheck          # 生成コードと起動用のファイルの型検査
 ```
 
 ユーザーやクライアントを足す、有効期限を変えるといった変更を生成AIに頼むときは、`prompts/B05-configure-generated-op.md`（Claude Code では `/b5-configure-generated-op`）を使います。
@@ -195,7 +195,7 @@ cd chapter3/cli-app && pnpm start
 ```
 chapter3/
 ├── README.md               # この文書
-├── openid-provider/        # 認証基盤の土台。src/oidc-provider/ を pnpm run generate で作る
+├── openid-provider/        # 認証基盤の作業場所。src/oidc-provider/ を pnpm run generate で作る
 │   ├── package.json        # 版を固定した依存関係と、generate / start などのスクリプト
 │   ├── tsconfig.json       # hono/jsx の設定込み
 │   ├── .env.example        # ローカル検証用の設定
