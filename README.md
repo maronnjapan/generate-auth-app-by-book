@@ -13,10 +13,10 @@
 | 項目 | 値 |
 |---|---|
 | Node.js | 22.9 以上（`.node-version` に `22` を記載） |
-| pnpm | 10 系（`corepack enable` または `npm i -g pnpm`） |
+| pnpm | 10 系（入っていなければ `npm install -g pnpm@10`） |
 | 生成AIのコーディングツール | Claude Code を想定。Cursor、Codex CLI、Gemini CLI などでも `prompts/` のファイルを読ませれば使える |
 | ブラウザー | Chrome、Edge など Chromium 系で確認済み。第3章の認証基盤は `Secure` 属性の Cookie を使うため、`http://localhost` でその Cookie を受け付けるブラウザーが必要（Firefox、Safari は未確認） |
-| ターミナル | 2〜4 枚開けるもの（認証基盤とアプリを同時に起動する） |
+| ターミナル | 3〜4 つ開けるもの（認証基盤とアプリを同時に起動する） |
 
 外部サービスのアカウント、契約、デプロイ先は不要です。
 すべて同じ PC の中（`localhost`）で動かします。

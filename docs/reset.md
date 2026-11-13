@@ -16,12 +16,23 @@
 # 何が消えるかを先に確認する（-n は dry run）
 git clean -ndx chapter2/openid-provider chapter2/app-a chapter2/app-b
 
-# 消す（node_modules と .env も含めて、追跡していないファイルを消す）
+# 追跡していないファイル（生成されたコード、node_modules、.env）を消す
 git clean -fdx chapter2/openid-provider chapter2/app-a chapter2/app-b
 
-# 生成コードをコミットしていた場合は、追跡中のファイルも戻す
+# 生成AIが書き換えた README を、元の内容に戻す
 git checkout -- chapter2/openid-provider chapter2/app-a chapter2/app-b
 ```
+
+これは、生成されたコードをコミットしていない場合の手順です。
+コミットしていた場合は、三つ目のコマンドの代わりに、次のコマンドを実行します。
+
+```bash
+# 三つの作業場所を、クローンした時点の内容に戻す
+git restore --source=origin/main --staged --worktree -- chapter2/openid-provider chapter2/app-a chapter2/app-b
+```
+
+戻した結果は、まだコミットしていない変更として残ります。
+`git status` で内容を確かめてから、コミットしてください。
 
 自分で変えた部分を残したい場合は、先に `git diff` や `git stash` で退避してください。
 
@@ -37,16 +48,24 @@ pnpm run generate
 
 ```bash
 cd chapter3/openid-provider
-git add -A && git commit -m "before regenerate"   # 退避
+git add src/oidc-provider && git commit -m "before regenerate"   # 退避
 pnpm run generate:force
-git diff                                           # 自分の変更が消えた箇所を確認
+git diff                                                          # 自分の変更が消えた箇所を確認
 ```
+
+`git diff` には、自分が書き換えた箇所が、生成直後の内容に戻る差分として表示されます。
 
 ## 4. 第3章の CLI アプリや API を作り直す
 
 ```bash
 git clean -fdx chapter3/cli-app chapter3/sample-api
 git checkout -- chapter3/cli-app chapter3/sample-api
+```
+
+生成されたコードをコミットしていた場合は、第2章と同じように、二つ目のコマンドを次のものに置き換えます。
+
+```bash
+git restore --source=origin/main --staged --worktree -- chapter3/cli-app chapter3/sample-api
 ```
 
 ## 5. 依存関係を入れ直す
@@ -66,3 +85,6 @@ git checkout -- .     # 追跡中のファイルを戻す
 ```
 
 `git clean -fdx` は元に戻せません。先に `-n` を付けて消える対象を確認してください。
+
+生成されたコードをコミットしていた場合、この手順では、コミットした内容までは戻りません。
+その場合は、別のディレクトリにクローンし直すのが、手間のかからない方法です。
