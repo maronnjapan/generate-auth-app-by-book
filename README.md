@@ -39,7 +39,7 @@ pnpm -v   # 10.x
 .
 ├── README.md                 # この文書（付録A）
 ├── CLAUDE.md                 # 生成AI（Claude Code）向けの共通ルール
-├── AGENTS.md                 # 他の生成AIツール向けの同じルール
+├── AGENTS.md                 # 他の生成AIツール向けの案内（CLAUDE.md を読むように伝える）
 ├── .claude/commands/         # prompts/ を呼び出すスラッシュコマンド（/b1-openid-provider など）
 ├── docs/
 │   ├── ai-tools.md           # 生成AIツールの初期設定（権限の許可リストなど）
@@ -104,7 +104,7 @@ Claude Code では `/b1-openid-provider` のようなスラッシュコマンド
 ## 生成AIツールの初期設定
 
 - `CLAUDE.md`: Claude Code が自動で読む、このリポジトリでの作業ルール
-- `AGENTS.md`: Codex CLI や Cursor など、`AGENTS.md` を読むツール向けの同じ内容
+- `AGENTS.md`: Codex CLI や Cursor など、`AGENTS.md` を読むツール向けの案内。`CLAUDE.md` を読むように伝え、要点を再掲している
 - `.claude/commands/`: `prompts/` の各プロンプトを呼び出すスラッシュコマンド
 - [docs/ai-tools.md](docs/ai-tools.md): 権限の許可リストの例と、他ツールでの使い方
 
