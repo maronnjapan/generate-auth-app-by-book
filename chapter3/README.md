@@ -147,7 +147,7 @@ curl -s -X POST http://localhost:4000/token \
 # 拒否後: {"error":"access_denied",...}
 ```
 
-## 3.5 検証用の CLI アプリを、生成AIで作る
+## 3.5 検証用の CLI アプリを生成AIに作ってもらう
 
 1. サンプル CLI アプリ（3.5.2）: `prompts/B06-device-cli-app.md` を渡す（Claude Code では `/b6-device-cli-app`）。`cli-app/` に作られる
 2. サンプル API（3.5.4）: `prompts/B07-sample-api.md` を渡す（`/b7-sample-api`）。`sample-api/` に作られる
@@ -156,7 +156,7 @@ CLI アプリは、承認用 URL（`verification_uri_complete`。ユーザーコ
 サンプル API は、Token Introspection（RFC 7662）でアクセストークンを検証して応答します。
 どちらを先に作っても構いません。CLI アプリは、API が起動していなければその旨を表示します。
 
-## 3.6 ブラウザーで承認し、CLI アプリを使ってみる
+## 3.6 ブラウザーで承認して、CLI アプリを使ってみる
 
 ターミナルを三つ使います。
 

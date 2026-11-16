@@ -44,9 +44,9 @@ pnpm -v   # 10.x
 ├── docs/
 │   ├── ai-tools.md           # 生成AIツールの初期設定（権限の許可リストなど）
 │   ├── reset.md              # A.6 検証を最初からやり直す方法
-│   └── versions.md           # A.7 使用したパッケージのバージョンと参照資料
+│   └── versions.md           # A.7 使用したパッケージのバージョンと参考資料
 ├── prompts/                  # 付録B プロンプト集（B.1〜B.7）
-├── chapter2/                 # 第2章: 生成AIで、ログインと SSO を作って試す
+├── chapter2/                 # 第2章: 生成AIでログインと SSO を作って試す
 │   ├── README.md             # 章の進め方（2.3〜2.7）
 │   ├── settings.md           # 認証基盤とアプリでそろえる設定値
 │   ├── openid-provider/      # 検証用 OpenID Provider の作業場所（B.1）
@@ -97,7 +97,7 @@ Claude Code では `/b1-openid-provider` のようなスラッシュコマンド
 
 [docs/reset.md](docs/reset.md) を参照してください。
 
-## A.7 本書で使用したパッケージのバージョンと参照資料
+## A.7 本書で使用したパッケージのバージョンと参考資料
 
 [docs/versions.md](docs/versions.md) を参照してください。
 
