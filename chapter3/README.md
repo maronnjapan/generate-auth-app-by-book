@@ -94,7 +94,7 @@ ls -R src/oidc-provider/features/device-authorization-grant/
 | 確認するもの | 場所 |
 |---|---|
 | デバイス認可を受け付ける処理（`POST /device_authorization`） | `features/device-authorization-grant/endpoints/device-authorization/`（`pipeline.ts` と `steps/`） |
-| ブラウザーでコードを確認・承認する画面（`GET/POST /device`、`/device/login`、`/device/approve`） | `features/device-authorization-grant/endpoints/device/`（`page.tsx` と `steps/`）、画面は `features/device-authorization-grant/views.tsx` |
+| ブラウザーでコードを確認して承認する画面（`GET/POST /device`、`/device/login`、`/device/approve`） | `features/device-authorization-grant/endpoints/device/`（`page.tsx` と `steps/`）、画面は `features/device-authorization-grant/views.tsx` |
 | 承認結果に応じてトークンを発行する処理（`/token` の `device_code` グラント） | `features/device-authorization-grant/steps/dispatch-device-code.ts`（`endpoints/token/pipeline.ts` から呼ばれる） |
 | 設定（有効期限、ポーリング間隔、ログイン失敗の上限） | `features/device-authorization-grant/config.ts` |
 | 有効な機能の一覧 | `features/enabled.ts` |
