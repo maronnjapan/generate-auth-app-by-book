@@ -8,7 +8,7 @@
 
 本書で作る認証基盤はすべて検証用です。本番の利用を想定していません。
 
-## A.1 必要な実行環境
+## A.1 実行環境
 
 | 項目 | 値 |
 |---|---|
@@ -21,7 +21,7 @@
 生成AIのコーディングツールのほかに、外部サービスのアカウント、契約、デプロイ先は不要です。
 すべて同じ PC の中（`localhost`）で動かします。
 
-## A.2 リポジトリの取得方法
+## A.2 リポジトリのクローン
 
 ```bash
 git clone https://github.com/maronnjapan/generate-auth-app-by-book.git
@@ -33,7 +33,7 @@ pnpm -v   # 10.x
 ルートに `package.json` はありません。
 各ディレクトリが独立したプロジェクトで、それぞれの中で `pnpm install` と起動を行います。
 
-## A.3 章ごとのディレクトリ構成
+## A.3 ディレクトリ構成
 
 ```
 .
@@ -43,16 +43,16 @@ pnpm -v   # 10.x
 ├── .claude/commands/         # prompts/ を呼び出すスラッシュコマンド（/b1-openid-provider など）
 ├── docs/
 │   ├── ai-tools.md           # 生成AIツールの初期設定（権限の許可リストなど）
-│   ├── reset.md              # A.6 検証を最初からやり直す方法
-│   └── versions.md           # A.7 使用したパッケージのバージョンと参考資料
+│   ├── reset.md              # A.6 最初からやり直したい場合
+│   └── versions.md           # A.7 パッケージのバージョンと参考資料
 ├── prompts/                  # 付録B プロンプト集（B.1〜B.7）
-├── chapter2/                 # 第2章: 生成AIでログインと SSO を作って試す
+├── chapter2/                 # 第2章: 生成AIにログインと SSO を作ってもらう
 │   ├── README.md             # 章の進め方（2.3〜2.7）
 │   ├── settings.md           # 認証基盤とアプリでそろえる設定値
 │   ├── openid-provider/      # 検証用 OpenID Provider の作業場所（B.1）
 │   ├── app-a/                # Web アプリ A の作業場所（B.2）
 │   └── app-b/                # Web アプリ B の作業場所（B.2）
-└── chapter3/                 # 第3章: OSS を土台にして、発展的な機能を試す
+└── chapter3/                 # 第3章: OSS で認証基盤を生成して、CLI アプリからの認可を試す
     ├── README.md             # 章の進め方（3.4〜3.7）
     ├── openid-provider/      # maronn-oidc で生成する認証基盤の作業場所（起動用のファイルは用意済み）
     ├── cli-app/              # サンプル CLI アプリの作業場所（B.6）
@@ -63,9 +63,9 @@ pnpm -v   # 10.x
 中身はプロンプトを渡して生成AIに作ってもらいます。
 第3章の `openid-provider/` にだけは、OSS の CLI が生成したコードを Node.js で起動するためのファイル（`package.json`、`src/server.ts` など。以下「起動用のファイル」）をあらかじめ置いています。
 
-## A.4 プロンプトと実装対象の対応
+## A.4 プロンプトと作業場所の対応
 
-| プロンプト | 本書の節 | 実装対象 | 作られるもの |
+| プロンプト | 本書の節 | 作業場所 | 作られるもの |
 |---|---|---|---|
 | [B.1 OpenID Provider の実装](prompts/B01-openid-provider.md) | 2.4.1 | `chapter2/openid-provider/` | 検証用 OP（Discovery、認可、ログイン、トークン、UserInfo） |
 | [B.2 二つの Web アプリの実装](prompts/B02-web-apps.md) | 2.4.2 | `chapter2/app-a/`、`chapter2/app-b/` | OP にログインを任せる Web アプリ A と B |
@@ -78,7 +78,7 @@ pnpm -v   # 10.x
 渡し方と、うまく動かなかった場合の伝え方は [prompts/README.md](prompts/README.md) を参照してください。
 Claude Code では `/b1-openid-provider` のようなスラッシュコマンドでも呼び出せます。
 
-## A.5 認証基盤・Web アプリ・サンプル CLI アプリの起動方法
+## A.5 起動方法
 
 | 構成要素 | 章 | ディレクトリ | URL | 起動方法の記載場所 |
 |---|---|---|---|---|
@@ -93,11 +93,11 @@ Claude Code では `/b1-openid-provider` のようなスラッシュコマンド
 第2章と第3章はポートを分けているので、同時に起動しても衝突しません。
 ポートを変える場合は、[chapter2/settings.md](chapter2/settings.md) か `chapter3/openid-provider/.env.example` の値を先に変え、関係するアプリの設定もそろえてください。
 
-## A.6 検証を最初からやり直す方法
+## A.6 最初からやり直したい場合
 
 [docs/reset.md](docs/reset.md) を参照してください。
 
-## A.7 本書で使用したパッケージのバージョンと参考資料
+## A.7 パッケージのバージョンと参考資料
 
 [docs/versions.md](docs/versions.md) を参照してください。
 

@@ -1,9 +1,9 @@
-# 第3章 OSS を土台にして、発展的な機能を試す
+# 第3章 OSS で認証基盤を生成して、CLI アプリからの認可を試す
 
 自作 OSS の [maronn-openid-connect](https://github.com/maronnjapan/maronn-openid-connect) の CLI で、Device Authorization Grant（RFC 8628）を有効にした OpenID Provider を生成します。
 そのうえで、認可を要求するサンプル CLI アプリと、アクセストークンを検証するサンプル API を生成AIで作り、ブラウザーで承認してからトークンを取得する流れを同じ PC の中で動かします。
 
-## この章の構成要素（3.3.2）
+## 今回の構成（3.3.2）
 
 | 構成要素 | ディレクトリ | URL | 作り方 |
 |---|---|---|---|
@@ -38,9 +38,9 @@
 `http://localhost` を信頼できる接続として扱うブラウザー（Chrome、Edge などの Chromium 系で確認済み）では、平文の HTTP でもこの Cookie が保存されます。
 ブラウザーで承認の途中に 403 が返る場合は、Cookie が保存されているかを確認してください。
 
-## 3.4 機能を指定して、認証基盤を生成する
+## 3.4 認証基盤の準備
 
-### 3.4.1 第3章用の作業場所を用意する
+### 3.4.1 作業場所の確認
 
 ```bash
 cd chapter3/openid-provider
@@ -82,7 +82,7 @@ Next steps の 1〜4 は、用意済みの起動用のファイル（`tsconfig.j
 git add src/oidc-provider && git commit -m "chapter3: generate OP with device-authorization-grant"
 ```
 
-### 3.4.3 生成された機能を確認する
+### 3.4.3 生成された機能の確認
 
 ```bash
 ls src/oidc-provider/features/
@@ -103,7 +103,7 @@ ls -R src/oidc-provider/features/device-authorization-grant/
 既定で入る機能（`pkce`、`refresh-token`、`introspection`、`revocation`、`request-object`、`form-post-response-mode`、`implicit-flow`、`hybrid-flow`）に、`--enable` で `device-authorization-grant` を足した構成です。
 既定の機能を外すときは `--disable` を使います（例: `--disable implicit-flow,hybrid-flow`）。
 
-### 3.4.4 ローカル検証用の設定を用意する
+### 3.4.4 ローカル検証用の設定
 
 ```bash
 cp .env.example .env    # 値は上の表のとおり。変えなければそのままでよい
@@ -112,7 +112,7 @@ pnpm typecheck          # 生成コードと起動用のファイルの型検査
 
 ユーザーやクライアントを足す、有効期限を変えるといった変更を生成AIに頼むときは、`prompts/B05-configure-generated-op.md`（Claude Code では `/b5-configure-generated-op`）を使います。
 
-### 3.4.5 認証基盤を起動する
+### 3.4.5 認証基盤の起動
 
 ```bash
 pnpm start              # または pnpm dev（ファイル変更で再起動）
@@ -147,7 +147,7 @@ curl -s -X POST http://localhost:4000/token \
 # 拒否後: {"error":"access_denied",...}
 ```
 
-## 3.5 検証用の CLI アプリを生成AIに作ってもらう
+## 3.5 サンプル CLI アプリとサンプル API の準備
 
 1. サンプル CLI アプリ（3.5.2）: `prompts/B06-device-cli-app.md` を渡す（Claude Code では `/b6-device-cli-app`）。`cli-app/` に作られる
 2. サンプル API（3.5.4）: `prompts/B07-sample-api.md` を渡す（`/b7-sample-api`）。`sample-api/` に作られる
@@ -156,7 +156,7 @@ CLI アプリは、承認用 URL（`verification_uri_complete`。ユーザーコ
 サンプル API は、Token Introspection（RFC 7662）でアクセストークンを検証して応答します。
 どちらを先に作っても構いません。CLI アプリは、API が起動していなければその旨を表示します。
 
-## 3.6 ブラウザーで承認して、CLI アプリを使ってみる
+## 3.6 Device Authorization Grant の動作確認
 
 ターミナルを三つ使います。
 
@@ -174,14 +174,14 @@ cd chapter3/cli-app && pnpm start
 3. CLI アプリがアクセストークンを取得し、サンプル API（`GET /me`）を呼んだ結果（`sub` など）を表示する（3.6.3）
 4. もう一度 CLI アプリを実行し、今度は「Deny」を押す。CLI アプリが `access_denied` を表示して終了し、トークンを取得できないことを確認する（3.6.4）
 
-## 3.7 コマンドと生成物から、機能構成を振り返る
+## 3.7 OSS を土台にしてみてどうだったか
 
 - 実行した生成コマンド: `maronn-oidc generate hono --enable device-authorization-grant --output ./src/oidc-provider`
 - 既定の機能と、明示的に追加した機能: `src/oidc-provider/.maronn-openid-connect.json` の `features` と `features/enabled.ts`
 - エンドポイントの図: `pnpm run graph`（Mermaid）。`pnpm exec maronn-oidc graph hono --enable device-authorization-grant --detail steps` で各エンドポイントの中のステップまで描ける
 - 生成したコードの調整（3.7.3）: `prompts/B05-configure-generated-op.md`（`/b5-configure-generated-op`）。画面の文言や設定値を変えるときに使う。変えたファイルは README に残す。文言や `interval` を変えたあとは、この README の「Continue」「Approve」「Deny」や `interval (5)` を、変更後の内容に読み替える
 
-確認できたことと、まだ確認していないことを分けて書き出してください（3.7.4）。
+確認できたことと未確認のことを分けて書き出してください（3.7.4）。
 
 | 区分 | 例 |
 |---|---|

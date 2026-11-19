@@ -15,9 +15,9 @@ Claude Code では `.claude/commands/` のスラッシュコマンド（`/b1-ope
 - B.5 は「変更したい内容」を書き換えてから渡す
 - 生成結果は毎回異なる。期待と違えば、下の「うまく動かなかった場合」の形で伝えて直してもらう
 
-## 一覧（A.4 プロンプトと実装対象の対応）
+## 一覧（A.4 プロンプトと作業場所の対応）
 
-| 付録 | ファイル | 本書の節 | 実装対象 | 作られるもの |
+| 付録 | ファイル | 本書の節 | 作業場所 | 作られるもの |
 |---|---|---|---|---|
 | B.1 | [B01-openid-provider.md](B01-openid-provider.md) | 2.4.1 | `chapter2/openid-provider/` | 検証用 OpenID Provider |
 | B.2 | [B02-web-apps.md](B02-web-apps.md) | 2.4.2 | `chapter2/app-a/`、`chapter2/app-b/` | 認証基盤に接続する Web アプリ A と B |
@@ -27,7 +27,7 @@ Claude Code では `.claude/commands/` のスラッシュコマンド（`/b1-ope
 | B.6 | [B06-device-cli-app.md](B06-device-cli-app.md) | 3.5.2 | `chapter3/cli-app/` | Device Authorization Grant を使うサンプル CLI アプリ |
 | B.7 | [B07-sample-api.md](B07-sample-api.md) | 3.5.4 | `chapter3/sample-api/` | アクセストークンで利用するサンプル API |
 
-## うまく動かなかった場合（2.4 補足）
+## うまく動かなかった場合（2.4）
 
 エラーと実際に行った操作を、そのまま生成AIに伝えます。
 次の形にまとめると、生成AIが原因を切り分けやすくなります。
